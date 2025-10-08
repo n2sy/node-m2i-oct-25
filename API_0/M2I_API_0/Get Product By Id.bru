@@ -1,0 +1,23 @@
+meta {
+  name: Get Product By Id
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/produits/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "nom": "Produit 20",
+      "prix": 999,
+      "statut": "indisponible"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

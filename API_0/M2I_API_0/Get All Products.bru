@@ -1,0 +1,23 @@
+meta {
+  name: Get All Products
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:3000/produits/all
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "nom": "Produit 20",
+      "prix": 999,
+      "statut": "indisponible"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
