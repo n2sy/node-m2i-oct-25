@@ -1,0 +1,22 @@
+meta {
+  name: get Data
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/add
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "prenom" : "nidhal",
+    "age" : 41
+  }
+}
+
+settings {
+  encodeUrl: true
+}
