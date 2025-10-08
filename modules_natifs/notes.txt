@@ -1,0 +1,3 @@
+Node.js est un environnement d'exécution open source qui permet aux développeurs d'exécuter du code JavaScript côté serveur, en utilisant le moteur JavaScript V8 de Google. Il est particulièrement efficace pour créer des applications web rapides, évolutives et en temps réel, des API et des outils en ligne de commande, grâce à son modèle d'exécution non bloquant et orienté événements. 
+
+  Nouvelle Ligne ajoutée le 10/8/2025, 11:27:09 AM
