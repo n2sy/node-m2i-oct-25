@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Formation Node/Express avec M2i</h2>
+    <form action="/new" method="POST">
+      <label for="">Nom</label>
+      <input name="nom" type="text" />
+
+      <label for="">Prix</label>
+      <input name="prix" type="number" />
+
+      <label for="">Promo Minimal</label>
+      <input name="promo[promoMin]" type="number" />
+
+      <label for="">Promo Maximal</label>
+      <input name="promo[promoMax]" type="number" />
+
+      <button type="submit">Ajouter Produit</button>
+    </form>
+  </body>
+</html>
