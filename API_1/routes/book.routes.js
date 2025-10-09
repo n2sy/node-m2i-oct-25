@@ -6,6 +6,8 @@ const {
   updateBook,
   deleteBook,
   getAllDeletedBooks,
+  restoreBook,
+  searchBooks,
 } = require("../controllers/book.controller");
 
 const router = express.Router();
@@ -16,5 +18,7 @@ router.get("/deleted/all", getAllDeletedBooks);
 router.get("/:id", getBookById);
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
+router.patch("/:id", restoreBook);
+router.get("/filter", searchBooks);
 
 module.exports = router;
