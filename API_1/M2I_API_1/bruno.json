@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "M2I_API_1",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
