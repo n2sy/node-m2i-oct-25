@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include("header") %>
+    <h2>Contenu : <%= title %></h2>
+    <h5>par : <%= prenom %></h5>
+    <hr />
+    <h3>
+      <% if(show) { %>
+      <span>Affichage activé</span>
+      <% } else { %>
+      <span>Affichage désactivé</span>
+      <% } %>
+    </h3>
+    <hr />
+    <% if(typeof message != 'undefined') { %>
+    <h3 style="color: green"><%= message %></h3>
+    <hr />
+
+    <% } %>
+
+    <ul>
+      <% tab.forEach(element => { %>
+      <li><%= element.nom %> : <%= element.prix %></li>
+      <% }); %>
+    </ul>
+    <hr />
+    <form action="/new" method="POST">
+      <label for="">Nom</label>
+      <input name="nom" type="text" />
+
+      <label for="">Prix</label>
+      <input name="prix" type="number" />
+
+      <button type="submit">Ajouter Produit</button>
+    </form>
+
+    <%- include("footer") %>
+  </body>
+</html>
