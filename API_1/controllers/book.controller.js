@@ -6,10 +6,22 @@ exports.createBook = async (req, res) => {
   try {
     let data = await newBook.save();
     return res.status(201).json({
-      message: "Livre créé avec succès",
-      data,
+      message: `Le Livre ${data.title} a été créé avec succès`,
     });
   } catch (err) {
     next(err);
   }
+};
+
+exports.getAllBooks = (req, res) => {
+  let filter = req.query.search;
+  Book.find({
+    title: new RegExp(filter, "i"),
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
