@@ -1,0 +1,22 @@
+meta {
+  name: add Author
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:3000/authors/add
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "prenom" : "Joel",
+    "nom" : "Dicker"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDb = require("./config/db");
 const bookRoutes = require("./routes/book.routes");
+const authorRoutes = require("./routes/author.routes");
 
 const app = express();
 
@@ -8,6 +9,7 @@ require("dotenv").config();
 app.use(express.json());
 
 app.use("/books", bookRoutes);
+app.use("/authors", authorRoutes);
 
 app.use((error, req, res, next) => {
   const statusPersonnalise = error.statusCode || 500;
