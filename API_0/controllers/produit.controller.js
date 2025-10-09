@@ -1,20 +1,25 @@
-const { listeProduits } = require("../models/produit.model");
+const { listeProduits, produit_schema } = require("../models/produit.model");
 
 exports.getAllProducts = (req, res) => {
   let notDeletedProducts = listeProduits.filter(
     (produit) => produit.isdeleted == false
   );
-  return res.json(notDeletedProducts);
+  res.json(notDeletedProducts);
 };
-exports.getProduct = (req, res) => {
-  let selectedProduit = listeProduits.find(
-    (produit) => produit.id == req.params.id
-  );
-  if (!selectedProduit || selectedProduit.isdeleted == true)
-    res
-      .status(404)
-      .json({ message: `Le produit d'id ${req.params.id} n'existe pas` });
-  else res.status(200).json(selectedProduit);
+exports.getProduct = (req, res, next) => {
+  try {
+    let selectedProduit = listeProduits.find(
+      (produit) => produit.id == req.params.id
+    );
+    if (!selectedProduit || selectedProduit.isdeleted == true) {
+      let error = new Error(`Le produit d'id ${req.params.id} n'existe pas`);
+      error.statusCode = 404;
+      throw error;
+    }
+    res.status(200).json(selectedProduit);
+  } catch (err) {
+    return next(err);
+  }
 };
 exports.updateProduct = (req, res) => {
   let selectedId = req.params.identifiant;
@@ -31,13 +36,21 @@ exports.updateProduct = (req, res) => {
 
 exports.addProduct = (req, res) => {
   let newProduct = req.body;
-  newProduct.id = crypto.randomUUID();
-  // newProduct.isdeleted = false;
-  listeProduits.push({ ...newProduct, isdeleted: false });
-  res.status(201).json({
-    message: "Produit ajouté avec succès",
-    listeProduits,
-  });
+  //Validation
+  let validation_result = produit_schema.validate(newProduct);
+  if (validation_result.error) {
+    res
+      .status(500)
+      .json({ erreur: validation_result.error.details[0].message });
+  } else {
+    newProduct.id = crypto.randomUUID();
+    // newProduct.isdeleted = false;
+    listeProduits.push({ ...newProduct, isdeleted: false });
+    res.status(201).json({
+      message: "Produit ajouté avec succès",
+      listeProduits,
+    });
+  }
 };
 
 exports.deleteProduct = (req, res) => {

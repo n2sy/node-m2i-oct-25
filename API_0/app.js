@@ -9,6 +9,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/produits", produitRoutes);
 
+app.use((error, req, res, next) => {
+  const statusPersonnalise = error.statusCode || 500;
+  const message = error.message || "Erreur interne au serveur";
+
+  console.log("On est dans le controleur de la gestion des erreurs");
+
+  res.status(statusPersonnalise).json({ message });
+});
 // app.get("/m2i", (req, res) => {
 //   res.send("<h1>Premier test de notre API</h1>");
 // });
