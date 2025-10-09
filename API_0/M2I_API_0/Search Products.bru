@@ -1,11 +1,11 @@
 meta {
-  name: Update Product
+  name: Search Products
   type: http
-  seq: 7
+  seq: 11
 }
 
-put {
-  url: http://localhost:3000/produits/edit/2
+patch {
+  url: http://localhost:3000/produits/restore/2
   body: json
   auth: inherit
 }

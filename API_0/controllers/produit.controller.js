@@ -5,7 +5,6 @@ exports.getAllProducts = (req, res) => {
     (produit) => produit.isdeleted == false
   );
   return res.json(notDeletedProducts);
-  // traitement
 };
 exports.getProduct = (req, res) => {
   let selectedProduit = listeProduits.find(
@@ -73,8 +72,32 @@ exports.softDeleteProduct = (req, res) => {
     });
   }
 };
-exports.resotreProduct = (req, res) => {};
-exports.searchProducts = (req, res) => {};
+exports.restoreProduct = (req, res) => {
+  const selectedId = req.params.id;
+  let i = listeProduits.findIndex((produit) => produit.id == selectedId);
+  if (i == -1) {
+    res.status(404).json({
+      message: `Aucun produit avec cet id ne peut être restauré`,
+    });
+  } else {
+    listeProduits[i].isdeleted = false;
+    res.status(200).json({
+      message: "Produit (soft) supprimé avec succès",
+      listeProduits,
+    });
+  }
+};
+exports.searchProducts = (req, res) => {
+  //   let x = 10;
+  //   x += +req.query.prixmin;
+  //   console.log(x);
+  let t = listeProduits.filter(
+    (produit) =>
+      produit.prix >= req.query.prixmin && produit.prix <= req.query.prixmax
+  );
+  return res.json({ tab: t });
+  //console.log("Traitement après l'envoie de la réponse");
+};
 
 exports.getM2i = (req, res) => {
   res.send("<h1>Premier test de notre API</h1>");
