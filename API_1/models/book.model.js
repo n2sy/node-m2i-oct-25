@@ -28,4 +28,11 @@ const bookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+bookSchema.query.notDeleted = function () {
+  return this.where({ isDeleted: false });
+};
+bookSchema.query.isDeleted = function () {
+  return this.where({ isDeleted: true });
+};
+
 module.exports = mongoose.model("Book", bookSchema);

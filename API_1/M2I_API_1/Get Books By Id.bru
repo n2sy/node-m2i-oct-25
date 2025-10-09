@@ -1,0 +1,24 @@
+meta {
+  name: Get Books By Id
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:3000/books/all
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title" : "L'etranger",
+    "genre" : "drame",
+    "year" : 2001,
+    "avatar" : "cover.jpg"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

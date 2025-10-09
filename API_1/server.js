@@ -13,7 +13,7 @@ app.use((error, req, res, next) => {
   const statusPersonnalise = error.statusCode || 500;
   const message = error.message || "Erreur interne au serveur";
 
-  console.log("On est dans le controleur de la gestion des erreurs");
+  //   console.log("On est dans le controleur de la gestion des erreurs");
 
   res.status(statusPersonnalise).json({ message });
 });

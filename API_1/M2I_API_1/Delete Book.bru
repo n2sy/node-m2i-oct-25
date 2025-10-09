@@ -1,0 +1,24 @@
+meta {
+  name: Delete Book
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:3000/books/68e7bba04122274a3fc16c32
+  body: json
+  auth: inherit
+}
+
+body:json {
+   {
+      "title": "La formule de dieu V4",
+      "year": 2021,
+      "genre": "fiction",
+      "avatar": "cover.jpg"
+   }
+}
+
+settings {
+  encodeUrl: true
+}
