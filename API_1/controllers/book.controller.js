@@ -2,6 +2,11 @@ const Book = require("../models/book.model");
 
 exports.createBook = async (req, res, next) => {
   let newBook = new Book(req.body);
+  if (req.body.avatar) {
+    const urlAvatar =
+      req.protocol + "://" + req.get("host") + "/avatars/" + req.body.avatar;
+    newBook.avatar = urlAvatar;
+  }
 
   try {
     let data = await newBook.save();
