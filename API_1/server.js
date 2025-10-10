@@ -2,6 +2,7 @@ const express = require("express");
 const connectDb = require("./config/db");
 const bookRoutes = require("./routes/book.routes");
 const authorRoutes = require("./routes/author.routes");
+const authRoutes = require("./routes/user.routes");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use("/books", bookRoutes);
 app.use("/authors", authorRoutes);
+app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
   const statusPersonnalise = error.statusCode || 500;

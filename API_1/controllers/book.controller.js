@@ -1,6 +1,6 @@
 const Book = require("../models/book.model");
 
-exports.createBook = async (req, res) => {
+exports.createBook = async (req, res, next) => {
   let newBook = new Book(req.body);
 
   try {
@@ -13,7 +13,7 @@ exports.createBook = async (req, res) => {
   }
 };
 
-exports.getAllBooks = async (req, res) => {
+exports.getAllBooks = async (req, res, next) => {
   let filter = req.query.search;
   try {
     let data = await Book.find({
@@ -28,7 +28,7 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
-exports.getAllDeletedBooks = async (req, res) => {
+exports.getAllDeletedBooks = async (req, res, next) => {
   try {
     let data = await Book.find().populate("author", "prenom nom").isDeleted();
 
@@ -42,7 +42,7 @@ exports.getBookById = async (req, res, next) => {
   let bookId = req.params.id;
   try {
     let b = await Book.findById(bookId)
-      .populate("author", "prenom nom")
+      .populate("author", "prenom nom -_id")
       .notDeleted();
     if (!b) {
       let error = new Error("Aucun livre n'existe avec cet ID");
