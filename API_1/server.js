@@ -3,11 +3,15 @@ const connectDb = require("./config/db");
 const bookRoutes = require("./routes/book.routes");
 const authorRoutes = require("./routes/author.routes");
 const authRoutes = require("./routes/user.routes");
+const avatarRoutes = require("./routes/avatar.routes");
 
 const app = express();
 
 require("dotenv").config();
 app.use(express.json());
+
+app.use("/avatars", express.static("covers"));
+app.use("/images/uploads", avatarRoutes);
 
 app.use("/books", bookRoutes);
 app.use("/authors", authorRoutes);
