@@ -11,7 +11,19 @@ function Books() {
   const [refreshBook, setRefreshBook] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/books/all", {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        setListBooks([...data]);
+      });
+  }, []);
 
   return (
     <>
@@ -49,7 +61,7 @@ function Books() {
             {listBooks.map((b) => {
               return (
                 <BookItemTable
-                  key={b.id}
+                  key={b._id}
                   selectedBook={b}
                   setListBooks={setListBooks}
                 ></BookItemTable>

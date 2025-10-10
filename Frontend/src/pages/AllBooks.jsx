@@ -16,11 +16,23 @@ function AllBooks() {
       .then((data) => {
         setIsLoading(false);
         setTabBooks([...data]);
-        console.log(tabBooks);
       });
   }, []);
 
-  function searchBooksByYear(y1, y2) {}
+  function searchBooksByYear(y1, y2) {
+    fetch(`http://localhost:3000/books/filter?year1=${y1}&year2=${y2}`, {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTabBooks([...data]);
+      })
+      .catch((err) => {
+        alert("Vous n'avez pas les droits nécessaires");
+      });
+  }
 
   if (isLoading) {
     return (
