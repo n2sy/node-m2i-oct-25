@@ -25,7 +25,7 @@ exports.inscription = async (req, res, next) => {
       let data = await newUser.save();
       res.status(201).json({
         message: "Utilisateur créé avec succès",
-        data,
+        infos: data,
       });
     }
   } catch (err) {
@@ -63,6 +63,7 @@ exports.authentification = async (req, res, next) => {
         res.status(200).json({
           message: "Utilisateur authentifé avec succès",
           token: generatedToken,
+          role: u.role,
         });
       }
     }

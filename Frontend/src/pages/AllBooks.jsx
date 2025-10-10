@@ -6,7 +6,19 @@ function AllBooks() {
   const [tabBooks, setTabBooks] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetch("http://localhost:3000/books/all", {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setIsLoading(false);
+        setTabBooks([...data]);
+        console.log(tabBooks);
+      });
+  }, []);
 
   function searchBooksByYear(y1, y2) {}
 

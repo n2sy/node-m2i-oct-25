@@ -21,13 +21,13 @@ exports.createBook = async (req, res, next) => {
 exports.getAllBooks = async (req, res, next) => {
   let filter = req.query.search;
   try {
-    let data = await Book.find({
+    let books = await Book.find({
       title: new RegExp(filter, "i"),
     })
       .populate("author", "prenom nom")
       .notDeleted();
 
-    res.json(data);
+    res.json(books);
   } catch (err) {
     next(err);
   }
@@ -35,9 +35,9 @@ exports.getAllBooks = async (req, res, next) => {
 
 exports.getAllDeletedBooks = async (req, res, next) => {
   try {
-    let data = await Book.find().populate("author", "prenom nom").isDeleted();
+    let books = await Book.find().populate("author", "prenom nom").isDeleted();
 
-    res.json(data);
+    res.json(books);
   } catch (err) {
     next(err);
   }
@@ -123,8 +123,8 @@ exports.searchBooks = (req, res, next) => {
     year: { $gte: year1, $lte: year2 },
   })
     .notDeleted()
-    .then((data) => {
-      res.json(data);
+    .then((books) => {
+      res.json(books);
     })
     .catch((err) => {
       next(err);

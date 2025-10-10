@@ -20,6 +20,7 @@ function LoginContextProvider(props) {
 
   function seDeconnecter() {
     setIsLogged(false);
+    setIsRole("");
   }
 
   let c = {

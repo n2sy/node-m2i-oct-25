@@ -14,12 +14,12 @@ const {
 
 const router = express.Router();
 
-router.post("/add", isAuth, role("admin"), createBook);
-router.get("/all", getAllBooks);
-router.get("/deleted/all", getAllDeletedBooks);
+router.post("/add", isAuth, createBook);
+router.get("/all", isAuth, getAllBooks);
+router.get("/deleted/all", isAuth, getAllDeletedBooks);
 router.get("/filter", isAuth, searchBooks);
-router.get("/:id", isAuth, role("admin"), getBookById);
-router.put("/:id", isAuth, updateBook);
+router.get("/:id", isAuth, getBookById);
+router.put("/:id", isAuth, role("admin"), updateBook);
 router.delete("/:id", isAuth, role("admin"), deleteBook);
 router.patch("/:id", isAuth, role("admin"), restoreBook);
 

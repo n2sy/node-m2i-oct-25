@@ -4,11 +4,14 @@ const bookRoutes = require("./routes/book.routes");
 const authorRoutes = require("./routes/author.routes");
 const authRoutes = require("./routes/user.routes");
 const avatarRoutes = require("./routes/avatar.routes");
+var cors = require("cors");
 
 const app = express();
 
 require("dotenv").config();
 app.use(express.json());
+
+app.use(cors());
 
 app.use("/avatars", express.static("covers"));
 app.use("/images/uploads", avatarRoutes);

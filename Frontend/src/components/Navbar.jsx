@@ -22,7 +22,11 @@ function Navbar() {
             <li>
               <Link to="/favourites">Favourites</Link>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                logCtx.seDeconnecter();
+              }}
+            >
               <Link to="/">Logout</Link>
             </li>
           </ul>
@@ -42,7 +46,11 @@ function Navbar() {
             <li>
               <Link to="/users">Users </Link>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                logCtx.seDeconnecter();
+              }}
+            >
               <Link to="/">Logout</Link>
             </li>
           </ul>
