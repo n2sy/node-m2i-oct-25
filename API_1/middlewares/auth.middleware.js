@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
 
 require("dotenv").config();
 
-const isAuth = (req, res, next) => {
+const isAuth = async (req, res, next) => {
   let authValue = req.header("Authorization");
   if (!authValue) {
     let error = new Error("Utilisateur non authentifié");
@@ -13,6 +14,11 @@ const isAuth = (req, res, next) => {
     //  let tokenRecupere = authValue.replace("Bearer ", "")
     try {
       const decodedToken = jwt.verify(tokenRecupere, process.env.secret);
+      console.log(decodedToken);
+      let user = await User.findById(decodedToken.id);
+
+      req.roleUser = user.role;
+
       next();
     } catch (err) {
       next(err);

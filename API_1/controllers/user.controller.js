@@ -51,8 +51,8 @@ exports.authentification = async (req, res, next) => {
       } else {
         const generatedToken = jwt.sign(
           {
-            name: u.name,
-            role: u.role,
+            // name: u.name,
+            // role: u.role,
             id: u.id,
           },
           process.env.secret,
