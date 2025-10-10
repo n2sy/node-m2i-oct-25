@@ -4,10 +4,15 @@ meta {
   seq: 9
 }
 
-patch {
-  url: http://localhost:3000/books/68e7bbb34122274a3fc16c34
+get {
+  url: http://localhost:3000/books/filter?year1=2008&year2=2021
   body: json
   auth: inherit
+}
+
+params:query {
+  year1: 2008
+  year2: 2021
 }
 
 settings {

@@ -4,19 +4,19 @@ meta {
   seq: 5
 }
 
-get {
+put {
   url: http://localhost:3000/books/68e7bba04122274a3fc16c32
   body: json
   auth: inherit
 }
 
 body:json {
-  {
-    "title" : "L'etranger",
-    "genre" : "drame",
-    "year" : 2001,
-    "avatar" : "cover.jpg"
-  }
+   {
+      "title": "La formule de dieu V4",
+      "year": 2021,
+      "genre": "fiction",
+      "avatar": "cover.jpg"
+   }
 }
 
 settings {

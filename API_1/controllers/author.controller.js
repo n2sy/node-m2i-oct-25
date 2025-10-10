@@ -13,7 +13,13 @@ exports.createAuthor = async (req, res, next) => {
 };
 exports.getAllAuthors = async (req, res, next) => {
   try {
-    let data = await AuthorModel.find();
+    let data = await AuthorModel.find()
+      .populate({
+        path: "livres",
+        match: { isDeleted: false },
+        select: "title genre avatar",
+      })
+      .lean();
     res.json({ ListeAuteurs: data });
   } catch (err) {
     next(err);

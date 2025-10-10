@@ -18,7 +18,9 @@ exports.getAllBooks = async (req, res) => {
   try {
     let data = await Book.find({
       title: new RegExp(filter, "i"),
-    }).notDeleted();
+    })
+      .populate("author", "prenom nom")
+      .notDeleted();
 
     res.json(data);
   } catch (err) {
@@ -28,7 +30,7 @@ exports.getAllBooks = async (req, res) => {
 
 exports.getAllDeletedBooks = async (req, res) => {
   try {
-    let data = await Book.find().isDeleted();
+    let data = await Book.find().populate("author", "prenom nom").isDeleted();
 
     res.json(data);
   } catch (err) {
@@ -39,7 +41,9 @@ exports.getAllDeletedBooks = async (req, res) => {
 exports.getBookById = async (req, res, next) => {
   let bookId = req.params.id;
   try {
-    let b = await Book.findById(bookId).notDeleted();
+    let b = await Book.findById(bookId)
+      .populate("author", "prenom nom")
+      .notDeleted();
     if (!b) {
       let error = new Error("Aucun livre n'existe avec cet ID");
       error.statusCode = 404;
