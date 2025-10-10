@@ -1,5 +1,8 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
 
 exports.inscription = async (req, res, next) => {
   try {
@@ -30,4 +33,40 @@ exports.inscription = async (req, res, next) => {
   }
 };
 
-exports.authentification = (req, res, next) => {};
+exports.authentification = async (req, res, next) => {
+  let { identifiant, password } = req.body;
+  try {
+    let u = await User.findOne({
+      $or: [{ email: identifiant }, { username: identifiant }],
+    });
+    if (!u) {
+      let error = new Error("Aucun utilisateur avec cet identifiant");
+      error.statusCode = 404;
+      throw error;
+    } else {
+      let resultMatching = await bcrypt.compare(password, u.password);
+      if (!resultMatching) {
+        let error = new Error("Mot de passe erroné");
+        throw error;
+      } else {
+        const generatedToken = jwt.sign(
+          {
+            name: u.name,
+            role: u.role,
+            id: u.id,
+          },
+          process.env.secret,
+          {
+            expiresIn: "1d",
+          }
+        );
+        res.status(200).json({
+          message: "Utilisateur authentifé avec succès",
+          token: generatedToken,
+        });
+      }
+    }
+  } catch (err) {
+    next(err);
+  }
+};
